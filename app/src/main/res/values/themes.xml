@@ -4,6 +4,5 @@
          Customize your light theme here.
          <item name="colorPrimary">@color/black</item>
     </style>
-
     <style name="Theme.WorldTrade" parent="Base.Theme.WorldTrade" />
 </resources>

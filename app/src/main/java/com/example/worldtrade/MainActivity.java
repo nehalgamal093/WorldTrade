@@ -4,6 +4,7 @@ package com.example.worldtrade;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_navigation_drawer,R.string.close_navigation_drawer);
+        toggle.getDrawerArrowDrawable().setColor(ContextCompat.getColor(this,R.color.white));
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -57,27 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentManager = getSupportFragmentManager();
         openFragment(new HomeFragment());
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//        replaceFragment(new HomeFragment());
-//        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-//            if(item.getItemId() == R.id.home){
-//                replaceFragment(new HomeFragment());
-//            } else if(item.getItemId() == R.id.account){
-//                replaceFragment(new AccountFragment());
-//            } else if(item.getItemId() == R.id.list){
-//                replaceFragment(new ListFragment());
-//            }
-//
-//            return true;
-//        });
-//    }
-//    private void replaceFragment(Fragment fragment){
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.frame_layout,fragment);
-//        fragmentTransaction.commit();
-//    }
+
     }
 
     @Override
