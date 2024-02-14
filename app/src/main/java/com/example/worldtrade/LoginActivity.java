@@ -3,6 +3,7 @@ package com.example.worldtrade;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextPassword;
     View view;
     TextView register;
+    SharedPreferences sharedPreferences;
+    private static final String SHARED_PREFS_NAME = "saveLogin";
+    private static final String KEY_EMAIL = "hasLoggedIn";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(editTextEmail.getText().toString())|| TextUtils.isEmpty(editTextPassword.getText().toString())){
                     Toast.makeText(LoginActivity.this,"Username Or Password Required",Toast.LENGTH_SHORT).show();
                 } else {
-                    System.out.println(editTextEmail.getText().toString());
-                    System.out.println(editTextPassword.getText().toString());
+
                     progressAuthentication.buttonClicked();
                     login();
                 }
@@ -65,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 public void login(){
+
+
     ProgressAuthentication progressAuthentication = new ProgressAuthentication(LoginActivity.this,view);
     LoginRequest loginRequest = new LoginRequest();
     loginRequest.setEmail(editTextEmail.getText().toString());
@@ -76,12 +81,17 @@ public void login(){
 
             if(response.isSuccessful()){
                 Toast.makeText(LoginActivity.this,"Login Successfully",Toast.LENGTH_SHORT).show();
+
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        progressAuthentication.buttonFinished();
-                        LoginResponse loginResponse = response.body();
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME,0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(KEY_EMAIL,true);
+                    editor.commit();
+                    progressAuthentication.buttonFinished();
+                    LoginResponse loginResponse = response.body();
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     }
                 },100);
             } else {
