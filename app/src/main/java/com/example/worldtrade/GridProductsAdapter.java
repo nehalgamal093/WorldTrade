@@ -8,20 +8,25 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.worldtrade.models.ProductModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 public class GridProductsAdapter extends BaseAdapter {
     Context context;
-    String[] productName;
-    int[] productImage;
+    private ArrayList<ProductModel> productModel;
+
     LayoutInflater inflater;
-    public GridProductsAdapter(Context context, String[] productName, int[] productImage) {
+
+    public GridProductsAdapter(Context context, ArrayList<ProductModel> productModel) {
         this.context = context;
-        this.productName = productName;
-        this.productImage = productImage;
+        this.productModel = productModel;
     }
 
     @Override
     public int getCount() {
-      return productName.length;
+      return productModel.size();
     }
 
     @Override
@@ -43,8 +48,8 @@ public class GridProductsAdapter extends BaseAdapter {
         }
         ImageView imageView = view.findViewById(R.id.product_image);
         TextView textView = view.findViewById(R.id.product_name);
-        imageView.setImageResource(productImage[i]);
-        textView.setText(productName[i]);
+        Picasso.get().load(productModel.get(i).getImage()).placeholder(R.drawable.ic_launcher_background).into(imageView);
+        textView.setText(productModel.get(i).getTitle());
         return view;
     }
 }
