@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +17,6 @@ import com.example.worldtrade.service.ApiClient;
 import com.example.worldtrade.service.LoginRequest;
 import com.example.worldtrade.service.LoginResponse;
 
-import okhttp3.internal.http2.Http2Reader;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
